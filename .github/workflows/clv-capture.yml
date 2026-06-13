@@ -1,0 +1,51 @@
+name: CLV capture
+
+# Захоплює закривальну лінію (CLV) у хмарі — комп'ютер не потрібен.
+# clv.py оновлює коеф, поки матч upcoming, і заморожує його після старту,
+# тож останній запуск перед локом і дає справжню закривальну лінію.
+
+on:
+  workflow_dispatch: {}        # ручний запуск кнопкою
+  schedule:
+    # Кожні 5 хв у вікні 07:00–21:00 UTC (= 10:00–24:00 за Києвом).
+    # GitHub cron — лише UTC, мінімум 5 хв, можливі затримки 5–15 хв.
+    - cron: "*/5 7-21 * * *"
+
+# Не запускати дві копії одночасно.
+concurrency:
+  group: clv-capture
+  cancel-in-progress: false
+
+permissions:
+  contents: write              # потрібне, щоб запушити оновлений bets.csv
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Capture closing lines
+        run: |
+          cd scripts
+          python3 clv.py capture || true
+
+      - name: Commit updated bets.csv if changed
+        run: |
+          if git status --porcelain bets.csv | grep -q .; then
+            git config user.name  "clv-bot"
+            git config user.email "actions@github.com"
+            git add bets.csv
+            git commit -m "chore(clv): capture closing line [skip ci]"
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
+            git push
+            echo "Pushed CLV update."
+          else
+            echo "No CLV change (no upcoming matches or already captured)."
+          fi
