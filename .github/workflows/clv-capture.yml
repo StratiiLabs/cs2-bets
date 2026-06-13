@@ -1,27 +1,34 @@
 name: CLV capture
 
 # Захоплює закривальну лінію (CLV) у хмарі — комп'ютер не потрібен.
-# clv.py оновлює коеф, поки матч upcoming, і заморожує його після старту,
-# тож останній запуск перед локом і дає справжню закривальну лінію.
+#
+# Чому НЕ просто "*/5 cron": безкоштовний GitHub сильно тротлить часті
+# розклади (фактично спрацьовує раз на 1-2 год). Тому замість цього кілька
+# разів на день СТАРТУЄМО джобу, а всередині неї крутимо власний цикл, що
+# захоплює лінію кожні 5 хв до локу останнього матчу. Гранулярність уже не
+# залежить від примх cron.
+#
+# ВАЖЛИВО: репозиторій має бути PUBLIC — джоба живе годинами, а на public
+# хвилини Actions безкоштовні. На private це швидко з'їсть ліміт 2000 хв/міс.
 
 on:
-  workflow_dispatch: {}        # ручний запуск кнопкою
+  workflow_dispatch: {}
   schedule:
-    # Кожні 5 хв у вікні 07:00–21:00 UTC (= 10:00–24:00 за Києвом).
-    # GitHub cron — лише UTC, мінімум 5 хв, можливі затримки 5–15 хв.
-    - cron: "*/5 7-21 * * *"
+    # Стартуємо що 2 год у вікні 06:00–20:00 UTC. Кожен старт перечитує
+    # незакриті ставки й ловить нові, додані з моменту попереднього старту.
+    - cron: "0 6-20/2 * * *"
 
-# Не запускати дві копії одночасно.
 concurrency:
   group: clv-capture
-  cancel-in-progress: false
+  cancel-in-progress: true   # новий старт замінює старий цикл (свіжий список ставок)
 
 permissions:
-  contents: write              # потрібне, щоб запушити оновлений bets.csv
+  contents: write
 
 jobs:
   capture:
     runs-on: ubuntu-latest
+    timeout-minutes: 350       # < 6 год ліміту джоби
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -31,21 +38,37 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Capture closing lines
+      - name: Configure git
+        run: |
+          git config user.name  "clv-bot"
+          git config user.email "actions@github.com"
+
+      - name: Capture loop until last match locks
         run: |
           cd scripts
-          python3 clv.py capture || true
-
-      - name: Commit updated bets.csv if changed
-        run: |
-          if git status --porcelain bets.csv | grep -q .; then
-            git config user.name  "clv-bot"
-            git config user.email "actions@github.com"
-            git add bets.csv
-            git commit -m "chore(clv): capture closing line [skip ci]"
-            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
-            git push
-            echo "Pushed CLV update."
-          else
-            echo "No CLV change (no upcoming matches or already captured)."
+          END=$(python3 clv.py endtime || true)
+          if [ -z "$END" ]; then
+            echo "No pending bets with match_slug — nothing to capture."
+            exit 0
           fi
+          STOP=$((END + 180))          # 3 хв після старту останнього матчу
+          NOW=$(date +%s)
+          MAXEND=$((NOW + 20400))      # запобіжник: максимум ~5г40хв
+          if [ "$STOP" -gt "$MAXEND" ]; then STOP=$MAXEND; fi
+          echo "Looping until $(date -u -d @$STOP) UTC"
+          while [ "$(date +%s)" -lt "$STOP" ]; do
+            python3 clv.py capture || true
+            cd ..
+            if git status --porcelain bets.csv | grep -q .; then
+              git add bets.csv
+              git commit -m "chore(clv): capture closing line [skip ci]"
+              git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
+              git push || true
+              echo "Pushed CLV update at $(date -u)."
+            else
+              echo "No change at $(date -u)."
+            fi
+            cd scripts
+            sleep 300
+          done
+          echo "Done — last match locked."
