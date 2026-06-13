@@ -1,9 +1,9 @@
 bet_id,placed_at,event,team1,team2,market,selection,coeff,stake,status,payout,profit,model_prob,match_slug,market_key,close_coeff,clv_pct,notes
 2677253526933082282,2026-06-12T19:22,IEM Cologne Major 2026,Team Vitality,9z Team,handicap_maps,9z (+1.5),2.92,10.00,won,29.20,19.20,0.492,,,,,value pick EV+46%
 2677253364995199323,2026-06-12T19:21,IEM Cologne Major 2026,Aurora Gaming,Team Spirit,exact_score_maps,1:2 (Spirit),3.30,10.00,won,33.00,23.00,0.295,,,,,value pick EV+8%
-1781334981991,2026-06-13T07:16,IEM Cologne Major 2026,PARIVISION,Legacy,moneyline,Legacy ML,1.60,10.00,pending,,,0.680,parivision-vs-legacy-br-13-06-2026,team_2_ml,1.625,-0.0154,rank6+form60 vs rank14+form30 EV+9
+1781334981991,2026-06-13T07:16,IEM Cologne Major 2026,PARIVISION,Legacy,moneyline,Legacy ML,1.60,10.00,pending,,,0.680,parivision-vs-legacy-br-13-06-2026,team_2_ml,1.575,0.0159,rank6+form60 vs rank14+form30 EV+9
 1781334984343,2026-06-13T07:16,IEM Cologne Major 2026,BetBoom,FURIA,moneyline,BetBoom ML,2.44,8.00,pending,,,0.480,betboom-team-vs-furia-13-06-2026,team_1_ml,2.344,0.0410,"form 8-2 beat NaVi, FURIA 5-5 EV+17"
 1781334990717,2026-06-13T07:16,IEM Cologne Major 2026,Aurora,G2,moneyline,Aurora ML,2.19,5.00,pending,,,0.500,aurora-gaming-vs-g2-13-06-2026,team_1_ml,2.264,-0.0327,coinflip slight rank edge EV+10
 1781334992751,2026-06-13T07:16,IEM Cologne Major 2026,B8,FUT,moneyline,b8 ML,3.46,5.00,pending,,,0.380,b8-vs-fut-cs2-13-06-2026,team_1_ml,3.260,0.0613,"speculative high EV+31, biggest market disagreement"
-1781334998755,2026-06-13T07:16,IEM Cologne Major 2026,Vitality,MOUZ,handicap_maps,MOUZ +1.5,1.85,5.00,pending,,,0.510,vitality-vs-mousesports-13-06-2026,team_2_handicap_over_1_5,1.780,0.0393,MOUZ rank5 takes >=1 map vs Vitality EV+10
+1781334998755,2026-06-13T07:16,IEM Cologne Major 2026,Vitality,MOUZ,handicap_maps,MOUZ +1.5,1.85,5.00,pending,,,0.510,vitality-vs-mousesports-13-06-2026,team_2_handicap_over_1_5,1.910,-0.0314,MOUZ rank5 takes >=1 map vs Vitality EV+10
 1781335001342,2026-06-13T07:16,IEM Cologne Major 2026,BetBoom+Legacy,FURIA+PARIVISION,express,BetBoom ML x Legacy ML,3.90,4.00,pending,,,0.327,,,,,2 independent data legs EV+18 (CLV via legs)
