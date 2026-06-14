@@ -7,5 +7,5 @@ bet_id,placed_at,event,team1,team2,market,selection,coeff,stake,status,payout,pr
 2677477638804746719,2026-06-13T10:14,IEM Cologne Major 2026,Vitality,MOUZ,handicap_maps,MOUZ +1.5,1.81,5.00,won,9.05,4.05,0.510,vitality-vs-mousesports-13-06-2026,team_2_handicap_over_1_5,1.910,-0.0524,MOUZ rank5 takes >=1 map vs Vitality EV+10
 2677478084566983112,2026-06-13T10:16,IEM Cologne Major 2026,BetBoom+Legacy,FURIA+PARIVISION,express,BetBoom ML x Legacy ML,3.72,4.00,lost,0.00,-4.00,0.327,,,,,"2 legs: BetBoom lost, Legacy won -> express lost"
 1781420345931,2026-06-14T06:59,IEM Cologne Major 2026,MOUZ,FUT,moneyline,MOUZ ML,1.67,8.00,pending,,,0.650,mousesports-vs-fut-cs2-14-06-2026,team_1_ml,1.705,-0.0205,veto Dust2/OP/Mirage all MOUZ edge
-1781420346010,2026-06-14T06:59,IEM Cologne Major 2026,G2,Legacy,handicap_maps,Legacy +1.5,1.45,5.00,pending,,,0.800,g2-vs-legacy-br-14-06-2026,team_2_handicap_over_1_5,1.450,0.0000,Legacy Elo > G2
+1781420346010,2026-06-14T06:59,IEM Cologne Major 2026,G2,Legacy,handicap_maps,Legacy +1.5,1.45,5.00,pending,,,0.800,g2-vs-legacy-br-14-06-2026,team_2_handicap_over_1_5,1.460,-0.0068,Legacy Elo > G2
 1781420346088,2026-06-14T06:59,IEM Cologne Major 2026,MOUZ+Legacy,FUT+G2,express,MOUZ ML x Legacy +1.5,2.42,2.00,pending,,,0.521,,,,,"2 legs, CLV via singles"
