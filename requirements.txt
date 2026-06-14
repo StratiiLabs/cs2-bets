@@ -1,0 +1,10 @@
+# Core scripts (fetch_odds, ev_calc, log_bet, clv, elo, map_stats, fetch_stats)
+# use ONLY the Python standard library — no install needed.
+
+# hltv.py additionally needs curl_cffi for Cloudflare TLS-impersonation.
+# Install it in an isolated venv (PEP 668 blocks system installs):
+#   python3 -m venv ~/cfvenv --without-pip
+#   curl -sS https://bootstrap.pypa.io/get-pip.py | ~/cfvenv/bin/python
+#   ~/cfvenv/bin/pip install curl_cffi
+# Then run: ~/cfvenv/bin/python scripts/hltv.py ...
+curl_cffi>=0.15
