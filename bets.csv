@@ -9,4 +9,4 @@ bet_id,placed_at,event,team1,team2,market,selection,coeff,stake,status,payout,pr
 1781420345931,2026-06-14T06:59,IEM Cologne Major 2026,MOUZ,FUT,moneyline,MOUZ ML,1.67,8.00,lost,0.00,-8.00,0.650,mousesports-vs-fut-cs2-14-06-2026,team_1_ml,1.705,-0.0205,veto Dust2/OP/Mirage all MOUZ edge
 1781420346010,2026-06-14T06:59,IEM Cologne Major 2026,G2,Legacy,handicap_maps,Legacy +1.5,1.45,5.00,lost,0.00,-5.00,0.800,g2-vs-legacy-br-14-06-2026,team_2_handicap_over_1_5,1.460,-0.0068,Legacy Elo > G2
 1781420346088,2026-06-14T06:59,IEM Cologne Major 2026,MOUZ+Legacy,FUT+G2,express,MOUZ ML x Legacy +1.5,2.42,2.00,lost,0.00,-2.00,0.521,,,,,"2 legs, CLV via singles"
-1781523446156,2026-06-15T11:37,IEM Cologne Major 2026,BetBoom,FUT,moneyline,FUT ML,1.76,4.80,pending,,,0.660,betboom-team-vs-fut-cs2-15-06-2026,team_2_ml,1.700,0.0353,200 UAH on GGBET @1.76 (beat ref 1.685)
+1781523446156,2026-06-15T11:37,IEM Cologne Major 2026,BetBoom,FUT,moneyline,FUT ML,1.76,4.80,pending,,,0.660,betboom-team-vs-fut-cs2-15-06-2026,team_2_ml,1.685,0.0445,200 UAH on GGBET @1.76 (beat ref 1.685)
